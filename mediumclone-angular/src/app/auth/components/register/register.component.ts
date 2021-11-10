@@ -4,6 +4,8 @@ import {select, Store} from "@ngrx/store";
 import {registerAction} from "../../store/actions/register.action";
 import {Observable} from "rxjs";
 import {isSubmittingSelector} from "../../store/selectors";
+import {AuthService} from "../../services/authService";
+import {CurrentUserInterface} from "../../../shared/types/currentUser.interface";
 
 @Component({
   selector: 'mc-register',
@@ -15,7 +17,7 @@ export class RegisterComponent implements OnInit {
 
   isSubmitting$: Observable<boolean> // наблюдатель с типом boolean
 
-  constructor(private fb: FormBuilder, private store: Store) {}
+  constructor(private fb: FormBuilder, private store: Store, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.initializeForm()
@@ -38,5 +40,6 @@ export class RegisterComponent implements OnInit {
   onSubmit(): void {
     console.log('submit', this.form.value, this.form.valid)
     this.store.dispatch(registerAction(this.form.value))
+    this.authService.register(this.form.value).subscribe((currentUser: CurrentUserInterface)=> console.log('currentUser', currentUser))
   }
 }

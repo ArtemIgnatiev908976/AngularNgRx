@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core'
 import {FormGroup, FormBuilder, Validators} from '@angular/forms'
-import {select, Store} from "@ngrx/store";
-import {registerAction} from "../../store/actions/register.action";
-import {Observable} from "rxjs";
-import {isSubmittingSelector} from "../../store/selectors";
-import {AuthService} from "../../services/authService";
-import {CurrentUserInterface} from "../../../shared/types/currentUser.interface";
+import {Store, select} from '@ngrx/store'
+import {Observable} from 'rxjs'
+
+import {registerAction} from 'src/app/auth/store/actions/register.action'
+import {isSubmittingSelector} from 'src/app/auth/store/selectors'
+import {RegisterRequestInterface} from 'src/app/auth/types/registerRequest.interface'
 
 @Component({
   selector: 'mc-register',
@@ -14,10 +14,9 @@ import {CurrentUserInterface} from "../../../shared/types/currentUser.interface"
 })
 export class RegisterComponent implements OnInit {
   form: FormGroup
+  isSubmitting$: Observable<boolean>
 
-  isSubmitting$: Observable<boolean> // наблюдатель с типом boolean
-
-  constructor(private fb: FormBuilder, private store: Store, private authService: AuthService) {}
+  constructor(private fb: FormBuilder, private store: Store) {}
 
   ngOnInit(): void {
     this.initializeForm()
@@ -25,7 +24,7 @@ export class RegisterComponent implements OnInit {
   }
 
   initializeValues(): void {
-    this.isSubmitting$ = this.store.pipe(select(isSubmittingSelector)) //выбираем данные по селектору из стора и сеттит в наблюдателя
+    this.isSubmitting$ = this.store.pipe(select(isSubmittingSelector))
   }
 
   initializeForm(): void {
@@ -39,7 +38,9 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(): void {
     console.log('submit', this.form.value, this.form.valid)
-    this.store.dispatch(registerAction(this.form.value))
-    this.authService.register(this.form.value).subscribe((currentUser: CurrentUserInterface)=> console.log('currentUser', currentUser))
+    const request: RegisterRequestInterface = {
+      user: this.form.value
+    }
+    this.store.dispatch(registerAction({request}))
   }
 }

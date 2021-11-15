@@ -7,10 +7,9 @@ import {
   isSubmittingSelector,
   validationErrorsSelector
 } from 'src/app/auth/store/selectors'
-
 import {BackendErrorsInterface} from 'src/app/shared/types/backendErrors.interface'
-import {loginAction} from "../../store/actions/login.action";
-import {LoginRequestInterface} from "../../types/loginRequest.interface";
+import {LoginRequestInterface} from 'src/app/auth/types/loginRequest.interface'
+import {loginAction} from 'src/app/auth/store/actions/login.action'
 
 @Component({
   selector: 'mc-login',
@@ -35,7 +34,6 @@ export class LoginComponent implements OnInit {
   }
 
   initializeForm(): void {
-    console.log('initializeForm')
     this.form = this.fb.group({
       email: ['', Validators.required],
       password: ['', Validators.required]
@@ -43,7 +41,6 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log('submit', this.form.value, this.form.valid)
     const request: LoginRequestInterface = {
       user: this.form.value
     }

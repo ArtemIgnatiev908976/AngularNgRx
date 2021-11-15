@@ -9,7 +9,7 @@ import {AppComponent} from './app.component'
 import {AuthModule} from 'src/app/auth/auth.module'
 import {environment} from 'src/environments/environment'
 import {EffectsModule} from '@ngrx/effects'
-import {TopBarModule} from "./shared/topBar/topBar.module";
+import {TopBarModule} from 'src/app/shared/modules/topBar/topBar.module'
 
 @NgModule({
   declarations: [AppComponent],

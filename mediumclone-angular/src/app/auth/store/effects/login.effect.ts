@@ -2,12 +2,17 @@ import {Injectable} from '@angular/core'
 import {createEffect, Actions, ofType} from '@ngrx/effects'
 import {map, catchError, switchMap, tap} from 'rxjs/operators'
 import {HttpErrorResponse} from '@angular/common/http'
-import {AuthService} from '../../services/auth.service'
-import {CurrentUserInterface} from 'src/app/shared/types/currentUser.interface'
-import {of} from 'rxjs'
-import {PersistanceService} from 'src/app/shared/services/persistance.service'
 import {Router} from '@angular/router'
-import {loginAction, loginFailureAction, loginSuccessAction} from "../actions/login.action";
+import {of} from 'rxjs'
+
+import {AuthService} from 'src/app/auth/services/auth.service'
+import {CurrentUserInterface} from 'src/app/shared/types/currentUser.interface'
+import {PersistanceService} from 'src/app/shared/services/persistance.service'
+import {
+  loginAction,
+  loginSuccessAction,
+  loginFailureAction
+} from 'src/app/auth/store/actions/login.action'
 
 @Injectable()
 export class LoginEffect {
@@ -22,9 +27,7 @@ export class LoginEffect {
           }),
 
           catchError((errorResponse: HttpErrorResponse) => {
-            return of(
-              loginFailureAction({errors: errorResponse.error.errors})
-            )
+            return of(loginFailureAction({errors: errorResponse.error.errors}))
           })
         )
       })

@@ -3,6 +3,7 @@ import {Store, select} from '@ngrx/store'
 import {Observable, Subscription} from 'rxjs'
 import {Router, ActivatedRoute, Params} from '@angular/router'
 import {stringify, parseUrl} from 'query-string'
+
 import {getFeedAction} from 'src/app/shared/modules/feed/store/actions/getFeed.action'
 import {GetFeedResponseInterface} from 'src/app/shared/modules/feed/types/getFeedResponse.interface'
 import {

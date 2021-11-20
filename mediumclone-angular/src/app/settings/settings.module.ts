@@ -4,6 +4,8 @@ import {SettingsComponent} from 'src/app/settings/components/settings/settings.c
 import {RouterModule} from '@angular/router'
 import {StoreModule} from '@ngrx/store'
 import {reducers} from 'src/app/settings/store/reducers'
+import {BackendErrorMessagesModule} from 'src/app/shared/modules/backendErrorMessages/backendErrorMessages.module'
+import {ReactiveFormsModule} from '@angular/forms'
 
 const routes = [
   {
@@ -16,7 +18,9 @@ const routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    StoreModule.forFeature('settings', reducers)
+    StoreModule.forFeature('settings', reducers),
+    BackendErrorMessagesModule,
+    ReactiveFormsModule
   ],
   declarations: [SettingsComponent]
 })

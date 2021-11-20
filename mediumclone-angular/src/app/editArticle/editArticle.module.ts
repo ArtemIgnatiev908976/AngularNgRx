@@ -12,6 +12,7 @@ import {UpdateArticleEffect} from './store/effects/updateArticle.effect'
 import {GetArticleEffect} from './store/effects/getArticle.effect'
 import {EditArticleService} from 'src/app/editArticle/services/editArticle.service'
 import {ArticleService as SharedArticleService} from 'src/app/shared/services/article.service'
+import {LoadingModule} from '../shared/modules/loading/loading.module'
 
 const routes = [
   {
@@ -26,7 +27,8 @@ const routes = [
     RouterModule.forChild(routes),
     ArticleFormModule,
     EffectsModule.forFeature([UpdateArticleEffect, GetArticleEffect]),
-    StoreModule.forFeature('editArticle', reducers)
+    StoreModule.forFeature('editArticle', reducers),
+    LoadingModule
   ],
   declarations: [EditArticleComponent],
   providers: [EditArticleService, SharedArticleService]
